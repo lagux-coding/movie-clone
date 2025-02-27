@@ -28,10 +28,23 @@ export const updateSearchCount = async (searchTerm, movie) => {
       await database.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
         searchTerm,
         count: 1,
-        poster_url: `https://iamge.tmdb.org/t/p/w500/${movie.poster_path}`,
+        poster_url: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`,
         movie_id: movie.id,
       });
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getTrendingMovies = async () => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.limit(5),
+      Query.orderDesc("count"),
+    ]);
+
+    return result.documents;
   } catch (error) {
     console.log(error);
   }

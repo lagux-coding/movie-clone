@@ -3,7 +3,7 @@ import { useDebounce } from "react-use";
 import Search from "./components/Search";
 import Spinner from "./components/Spinner";
 import MovieCard from "./components/MovieCard";
-import { updateSearchCount } from "./appwrite";
+import { getTrendingMovies, updateSearchCount } from "./appwrite";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -19,6 +19,7 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [movieList, setMovieList] = useState([]);
+  const [trendingMovies, setTrendingMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
@@ -58,6 +59,16 @@ const App = () => {
     }
   };
 
+  const loadTrendingMovies = async () => {
+    try {
+      const movies = await getTrendingMovies();
+
+      setTrendingMovies(movies);
+    } catch (error) {
+      console.error("Error fetching trending movies: ", error);
+    }
+  };
+
   // Debounce the search term so that it only gives us the final value after the user has stopped typing
   useDebounce(
     () => {
@@ -70,6 +81,10 @@ const App = () => {
   useEffect(() => {
     fetchMovies(debouncedSearchTerm);
   }, [debouncedSearchTerm]);
+
+  useEffect(() => {
+    loadTrendingMovies();
+  }, []);
 
   return (
     <div>
@@ -93,8 +108,26 @@ const App = () => {
             />
           </header>
 
+          {trendingMovies.length > 0 && (
+            <section className="trending">
+              <h2>Trending Movies</h2>
+
+              <ul>
+                {trendingMovies.map((movie, index) => (
+                  <li key={movie.$id}>
+                    <p>{index + 1}</p>
+                    <img
+                      src={movie.poster_url}
+                      alt={movie.title}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           <section className="all-movies">
-            <h2 className="mt-[40px]">All Movies</h2>
+            <h2>All Movies</h2>
 
             {isLoading ? (
               <Spinner />
