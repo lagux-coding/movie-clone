@@ -1,7 +1,8 @@
 # Movies Clone - React + Vite
 
 MyApp is a React project built with Vite, providing a user interface for managing products.
-Live Demo: [https://movie.kusl.io.vn]
+</br>
+See this project online: [Live Demo](https://movie.kusl.io.vn)
 
 ## Installation
 
