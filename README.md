@@ -2,7 +2,7 @@
 
 MyApp is a React project built with Vite, providing a user interface for managing products.
 </br>
-See this project online: [Live Demo](https://movie.kusl.io.vn)
+See how this project online: [Live Demo](https://movie.kusl.io.vn)
 
 ## Installation
 
@@ -11,8 +11,7 @@ To install and run the project locally, follow these steps:
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/your-username/myApp.git
-   cd myApp
+   git clone https://github.com/lagux-coding/movie-clone.git
    ```
 
 2. Install dependencies:
@@ -31,4 +30,4 @@ To install and run the project locally, follow these steps:
 
 ## Features
 
-- Display a list of products with pagination.
+- Display a list of products
