@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
+import { useDebounce } from "react-use";
 import Search from "./components/Search";
 import Spinner from "./components/Spinner";
 import MovieCard from "./components/MovieCard";
+import { updateSearchCount } from "./appwrite";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
-const API_KEY = import.meta.env.TMDB_API_KEY;
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const API_OPTION = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization: "Bearer " + API_KEY,
+    Authorization: `Bearer ${API_KEY}`,
   },
 };
 
@@ -18,13 +20,16 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
-  const fetchMovies = async () => {
+  const fetchMovies = async (query = "") => {
     setIsLoading(true);
     setErrorMessage("");
 
     try {
-      const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      const endpoint = query
+        ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
+        : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
 
       const response = await fetch(endpoint, API_OPTION);
 
@@ -41,6 +46,10 @@ const App = () => {
 
       //success
       setMovieList(data.results || []);
+
+      if (query && data.results.length > 0) {
+        await updateSearchCount(query, data.results[0]);
+      }
     } catch (error) {
       console.error("Error fetching movies: ", error);
       setErrorMessage("Error fetching movies from the API");
@@ -49,9 +58,18 @@ const App = () => {
     }
   };
 
+  // Debounce the search term so that it only gives us the final value after the user has stopped typing
+  useDebounce(
+    () => {
+      setDebouncedSearchTerm(searchTerm);
+    },
+    500,
+    [searchTerm]
+  );
+
   useEffect(() => {
-    fetchMovies();
-  }, []);
+    fetchMovies(debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
 
   return (
     <div>
