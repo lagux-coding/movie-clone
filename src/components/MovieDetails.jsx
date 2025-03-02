@@ -3,6 +3,7 @@ import api from "../config/axios/axios";
 import { useState, useEffect } from "react";
 import Spinner from "./Spinner";
 import ReactPlayer from "react-player";
+import { FaPlay } from "react-icons/fa";
 
 const YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v=";
 
@@ -76,6 +77,34 @@ const MovieDetails = () => {
               <div className="stonk">
                 <img src="/stonk.svg" alt="stonk" />
                 <span>1</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Movie Images */}
+          <div className="movie-images">
+            <img
+              src={
+                movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                  : `/no-poster.png`
+              }
+              alt="Movie Poster"
+              className="poster"
+            />
+
+            <div className="backdrop">
+              <img
+                src={
+                  movie.backdrop_path
+                    ? `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
+                    : `/no-poster.png`
+                }
+                alt="Movie Poster"
+              />
+              <div className="trailer-button">
+                <FaPlay />
+                Trailer
               </div>
             </div>
           </div>
