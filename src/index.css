@@ -153,6 +153,8 @@
     }
 
     & .header-left {
+      @apply p-2 flex flex-col;
+
       h1 {
         @apply text-3xl font-bold;
       }
