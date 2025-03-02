@@ -2,6 +2,9 @@ import { useParams } from "react-router-dom";
 import api from "../config/axios/axios";
 import { useState, useEffect } from "react";
 import Spinner from "./Spinner";
+import ReactPlayer from "react-player";
+
+const YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v=";
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -51,18 +54,30 @@ const MovieDetails = () => {
       ) : errorMessage ? (
         <p className="text-red-500">{errorMessage}</p>
       ) : (
-        <div className="max-w-7xl w-full bg-[#0F0D23] text-white p-6 rounded-2xl shadow-lg">
+        <div className="movie-details">
           {/* Header */}
-          <div className="flex justify-between items-center p-4 text-white">
-            <div>
-              <h1 className="text-3xl font-bold">{movie.title}</h1>
-              <p className="text-gray-400">
+          <div className="header">
+            <div className="header-left">
+              <h1>{movie.title}</h1>
+              <span>
                 {movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
                 <span> • </span>
                 {movieRuntime(movie.runtime)}
-              </p>
+              </span>
             </div>
-            <div></div>
+            <div className="header-right">
+              <div className="rating">
+                <img src="/star.svg" alt="star" />
+                <p>
+                  {movie.vote_average}
+                  <span>/10 ({movie.vote_count})</span>
+                </p>
+              </div>
+              <div className="stonk">
+                <img src="/stonk.svg" alt="stonk" />
+                <span>1</span>
+              </div>
+            </div>
           </div>
         </div>
       )}
