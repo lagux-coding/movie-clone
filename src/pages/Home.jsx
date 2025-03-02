@@ -5,6 +5,7 @@ import Spinner from "../components/Spinner";
 import MovieCard from "../components/MovieCard";
 import { getTrendingMovies, updateSearchCount } from "../appwrite";
 import api from "../config/axios/axios";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -96,10 +97,12 @@ const Home = () => {
 
               <ul>
                 {trendingMovies.map((movie, index) => (
-                  <li key={movie.$id}>
-                    <p>{index + 1}</p>
-                    <img src={movie.poster_url} alt={movie.title} />
-                  </li>
+                  <Link to={`movie/${movie.movie_id}`}>
+                    <li key={movie.$id}>
+                      <p>{index + 1}</p>
+                      <img src={movie.poster_url} alt={movie.title} />
+                    </li>
+                  </Link>
                 ))}
               </ul>
             </section>
