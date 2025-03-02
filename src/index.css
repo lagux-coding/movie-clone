@@ -149,31 +149,27 @@
     }
 
     & .header {
-      @apply sm:flex justify-between items-center p-2;
-    }
+      @apply items-center p-2 sm:justify-between;
 
-    & .header-left {
-      @apply p-2 flex flex-col;
-
-      h1 {
-        @apply text-3xl font-bold;
+      & h1 {
+        @apply ml-0 p-2 text-left text-3xl font-bold;
       }
-    }
 
-    & .header-right {
-      @apply flex mt-1 gap-2 mb-6;
+      & .small-detail {
+        @apply flex flex-wrap items-center gap-2 p-2;
+      }
 
-      .rating {
+      & .rating {
         @apply flex items-center gap-2 bg-[#1E1B3A] px-3 py-2 rounded-lg;
       }
 
-      .stonk {
+      & .stonk {
         @apply flex items-center gap-2 bg-[#1E1B3A] px-3 py-2 rounded-lg;
       }
     }
 
     & .movie-images {
-      @apply flex flex-col space-x-6 space-y-6 md:flex-row md:space-y-0;
+      @apply flex flex-col mt-5 space-x-6 space-y-6 md:flex-row md:space-y-0 p-2;
 
       .poster {
         @apply w-full h-auto object-cover rounded-lg md:w-1/4;
@@ -182,8 +178,50 @@
       .backdrop {
         @apply w-full h-auto object-cover rounded-lg relative md:w-3/4;
 
+        img {
+          @apply rounded-lg;
+        }
+
         .trailer-button {
-          @apply absolute flex items-center gap-2 bottom-3 left-3 bg-black opacity-60 text-white px-7 py-2 rounded-full text-sm sm:gap-3 sm:px-10 sm:py-3 md:gap-4 md:px-12 md:py-4 md:text-2xl;
+          @apply absolute flex items-center gap-2 bottom-3 left-3 bg-black opacity-60 text-white px-6 py-2 rounded-full text-sm sm:gap-3 sm:px-10 sm:py-3 md:gap-4 md:px-10 md:py-3 md:text-2xl;
+        }
+      }
+    }
+  }
+
+  .movie-overview {
+    @apply flex flex-col-reverse mt-2 md:flex-row md:gap-20;
+
+    & .homepage {
+      @apply p-2 md:w-1/4;
+
+      & a {
+        @apply flex items-center gap-2 background-gradient px-3 py-2 rounded-lg md:py-4;
+
+        & span {
+          @apply text-black text-xl font-bold;
+        }
+      }
+    }
+
+    & .metadata {
+      @apply grid grid-cols-1 gap-5 mt-2 p-2 md:w-3/4;
+
+      & ul {
+        @apply flex flex-wrap gap-2 text-[#D6C7FF];
+      }
+
+      & .meta-item {
+        @apply grid grid-cols-[7rem_1fr] gap-2;
+
+        & p {
+          @apply text-[#D6C7FF];
+        }
+      }
+
+      & .genre {
+        & li {
+          @apply bg-[#1E1B3A] px-4 py-2 rounded-lg;
         }
       }
     }
@@ -192,6 +230,10 @@
 
 @utility text-gradient {
   @apply bg-linear-to-r from-[#D6C7FF] to-[#AB8BFF] bg-clip-text text-transparent;
+}
+
+@utility background-gradient {
+  @apply bg-linear-to-r from-[#D6C7FF] to-[#AB8BFF];
 }
 
 @utility fancy-text {
