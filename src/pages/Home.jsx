@@ -5,7 +5,7 @@ import Spinner from "../components/Spinner";
 import MovieCard from "../components/MovieCard";
 import { getTrendingMovies, updateSearchCount } from "../appwrite";
 import api from "../config/axios/axios";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
 
 const Home = () => {
@@ -15,8 +15,10 @@ const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
   const movieListRef = useRef(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialPage = Number(searchParams.get("page")) || 1;
+  const [currentPage, setCurrentPage] = useState(initialPage);
 
   const fetchMovies = async (query = "") => {
     setIsLoading(true);
@@ -86,7 +88,7 @@ const Home = () => {
         <div className="wrapper">
           <header>
             <h1>
-              Find <span className="text-gradient">Movies</span>
+              Movie <span className="text-gradient">Clone</span>
             </h1>
 
             <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -123,6 +125,7 @@ const Home = () => {
                   movieListRef={movieListRef}
                   currentPage={currentPage}
                   setCurrentPage={setCurrentPage}
+                  setSearchParams={setSearchParams}
                 />
 
                 <ul>
@@ -135,6 +138,7 @@ const Home = () => {
                   movieListRef={movieListRef}
                   currentPage={currentPage}
                   setCurrentPage={setCurrentPage}
+                  setSearchParams={setSearchParams}
                 />
               </>
             )}

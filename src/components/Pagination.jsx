@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import api from "../config/axios/axios";
 import Spinner from "./Spinner";
 
-const Pagination = ({ setMovieList, movieListRef, currentPage, setCurrentPage }) => {
+const Pagination = ({
+  setMovieList,
+  movieListRef,
+  currentPage,
+  setCurrentPage,
+  setSearchParams,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const totalPages = 500;
 
@@ -40,6 +46,7 @@ const Pagination = ({ setMovieList, movieListRef, currentPage, setCurrentPage })
 
   const goToPage = (page) => {
     setCurrentPage(page);
+    setSearchParams({ page });
     setTimeout(() => {
       if (movieListRef.current) {
         movieListRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
