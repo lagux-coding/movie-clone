@@ -46,7 +46,7 @@ const Navigation = () => {
         <div className="flex justify-around gap-10 items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="#" className={`text-4xl text-white`}>
+            <a href="/" className={`text-4xl text-white`}>
               Movie <span className="text-gradient">Clone</span>
             </a>
           </div>
@@ -57,7 +57,7 @@ const Navigation = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className={`text-xl text-white transition-colors`}
+                className={`text-xl text-white hover:text-[#AB8BFF] transition-colors`}
               >
                 {item.name}
               </a>
