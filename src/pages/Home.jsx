@@ -91,7 +91,7 @@ const Home = () => {
         <div className="wrapper">
           <header>
             <h1>
-              Movie <span className="text-gradient">Clone</span>
+              Find <span className="text-gradient">Movies</span>
             </h1>
 
             <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
