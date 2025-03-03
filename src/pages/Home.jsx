@@ -7,6 +7,7 @@ import { getTrendingMovies, updateSearchCount } from "../appwrite";
 import api from "../config/axios/axios";
 import { Link, useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
+import Navigation from "../components/Navigation";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -82,6 +83,7 @@ const Home = () => {
 
   return (
     <div>
+      <Navigation />
       <main>
         <div className="pattern" />
 
