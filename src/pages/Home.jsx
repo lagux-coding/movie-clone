@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDebounce } from "react-use";
 import Search from "../components/Search";
 import Spinner from "../components/Spinner";
@@ -6,6 +6,7 @@ import MovieCard from "../components/MovieCard";
 import { getTrendingMovies, updateSearchCount } from "../appwrite";
 import api from "../config/axios/axios";
 import { Link } from "react-router-dom";
+import Pagination from "../components/Pagination";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,6 +15,8 @@ const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const movieListRef = useRef(null);
 
   const fetchMovies = async (query = "") => {
     setIsLoading(true);
@@ -82,8 +85,6 @@ const Home = () => {
 
         <div className="wrapper">
           <header>
-            <img src="./hero-img.png" alt="Hero Banner" />
-
             <h1>
               Find <span className="text-gradient">Movies</span>
             </h1>
@@ -109,18 +110,33 @@ const Home = () => {
           )}
 
           <section className="all-movies">
-            <h2>All Movies</h2>
+            <h2 ref={movieListRef}>All Movies</h2>
 
             {isLoading ? (
               <Spinner />
             ) : errorMessage ? (
               <p className="text-red-500">{errorMessage}</p>
             ) : (
-              <ul>
-                {movieList.map((movie) => (
-                  <MovieCard key={movie.id} movie={movie} />
-                ))}
-              </ul>
+              <>
+                <Pagination
+                  setMovieList={setMovieList}
+                  movieListRef={movieListRef}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                />
+
+                <ul>
+                  {movieList.map((movie) => (
+                    <MovieCard key={movie.id} movie={movie} />
+                  ))}
+                </ul>
+                <Pagination
+                  setMovieList={setMovieList}
+                  movieListRef={movieListRef}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                />
+              </>
             )}
           </section>
         </div>
