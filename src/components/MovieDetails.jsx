@@ -135,7 +135,7 @@ const MovieDetails = () => {
               className="poster"
             />
 
-            <div className="backdrop">
+            <div className="backdrop cursor-pointer" onClick={handleTrailer}>
               <img
                 src={
                   movie.backdrop_path
