@@ -226,6 +226,18 @@
       }
     }
   }
+
+  .pagination {
+    @apply w-full flex justify-center flex-wrap items-center gap-2 mt-10 md:justify-end;
+
+    & button {
+      @apply bg-[#1E1B3A] px-3 py-2 rounded-lg text-[#AB8BFF] w-[4rem];
+    }
+
+    & .symbol {
+      @apply flex items-center gap-2;
+    }
+  }
 }
 
 @utility text-gradient {
