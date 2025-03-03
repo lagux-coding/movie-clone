@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -10,7 +11,12 @@ const MovieCard = ({
 
   return (
     <Link to={`/movie/${id}`}>
-      <div className="movie-card" onClick={handleInfo}>
+      <motion.div
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        className="movie-card"
+        onClick={handleInfo}
+      >
         <img
           src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : `/no-poster.png`}
           alt="{title}"
@@ -31,7 +37,7 @@ const MovieCard = ({
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </Link>
   );
 };

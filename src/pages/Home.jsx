@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useDebounce } from "react-use";
+import { useDebounce, useScroll } from "react-use";
 import Search from "../components/Search";
 import Spinner from "../components/Spinner";
 import MovieCard from "../components/MovieCard";
@@ -7,6 +7,8 @@ import { getTrendingMovies, updateSearchCount } from "../appwrite";
 import api from "../config/axios/axios";
 import { Link, useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
+import Navigation from "../components/Navigation";
+import { motion, useTransform } from "framer-motion";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -82,6 +84,7 @@ const Home = () => {
 
   return (
     <div>
+      <Navigation />
       <main>
         <div className="pattern" />
 
@@ -101,18 +104,22 @@ const Home = () => {
               <ul>
                 {trendingMovies.map((movie, index) => (
                   <Link to={`movie/${movie.movie_id}`}>
-                    <li key={movie.$id}>
+                    <motion.li
+                      key={movie.$id}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
                       <p>{index + 1}</p>
                       <img src={movie.poster_url} alt={movie.title} />
-                    </li>
+                    </motion.li>
                   </Link>
                 ))}
               </ul>
             </section>
           )}
 
-          <section className="all-movies">
-            <h2 ref={movieListRef}>All Movies</h2>
+          <section ref={movieListRef} className="all-movies">
+            <h2>All Movies</h2>
 
             {isLoading ? (
               <Spinner />

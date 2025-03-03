@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../config/axios/axios";
 import Spinner from "./Spinner";
+import { motion } from "framer-motion";
 
 const Pagination = ({
   setMovieList,
@@ -61,25 +62,45 @@ const Pagination = ({
       ) : (
         <div className="pagination">
           <div className="symbol">
-            <button onClick={() => goToPage(1)} disabled={currentPage === 1}>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => goToPage(1)}
+              disabled={currentPage === 1}
+            >
               ⏮
-            </button>
-            <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => goToPage(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
               ◀
-            </button>
+            </motion.button>
           </div>
           <div className="pages">
-            <button className="text-md font-bold text-white">
+            <motion.button className="text-md font-bold text-white">
               {currentPage ? currentPage : "1"}
-            </button>
+            </motion.button>
           </div>
           <div className="symbol">
-            <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages}>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
               ▶
-            </button>
-            <button onClick={() => goToPage(totalPages)} disabled={currentPage === totalPages}>
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => goToPage(totalPages)}
+              disabled={currentPage === totalPages}
+            >
               ⏭
-            </button>
+            </motion.button>
           </div>
         </div>
       )}
