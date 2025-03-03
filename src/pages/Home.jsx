@@ -85,7 +85,7 @@ const Home = () => {
   return (
     <div>
       <Navigation />
-      <main>
+      <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <div className="pattern" />
 
         <div className="wrapper">
@@ -98,7 +98,12 @@ const Home = () => {
           </header>
 
           {trendingMovies.length > 0 && (
-            <section className="trending">
+            <motion.section
+              className="trending"
+              initial={{ y: 100 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               <h2>Trending Movies</h2>
 
               <ul>
@@ -115,12 +120,11 @@ const Home = () => {
                   </Link>
                 ))}
               </ul>
-            </section>
+            </motion.section>
           )}
 
           <section ref={movieListRef} className="all-movies">
             <h2>All Movies</h2>
-
             {isLoading ? (
               <Spinner />
             ) : errorMessage ? (
@@ -151,7 +155,7 @@ const Home = () => {
             )}
           </section>
         </div>
-      </main>
+      </motion.main>
     </div>
   );
 };
