@@ -82,8 +82,6 @@ const Home = () => {
 
         <div className="wrapper">
           <header>
-            <img src="./hero-img.png" alt="Hero Banner" />
-
             <h1>
               Find <span className="text-gradient">Movies</span>
             </h1>

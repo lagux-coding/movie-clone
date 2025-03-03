@@ -12,6 +12,7 @@ const YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v=";
 const MovieDetails = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState([]);
+  const [movieVideo, setMovieVideo] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const formatter = new Intl.DateTimeFormat("en-US", {
@@ -19,6 +20,26 @@ const MovieDetails = () => {
     month: "long",
     day: "numeric",
   });
+
+  const fetchMovieVideo = async () => {
+    try {
+      console.log("testing");
+      const endpoint = `movie/${id}/videos`;
+      const response = await api.get(endpoint);
+      const data = response.data;
+
+      console.log(data);
+      if (data.Response === "False") {
+        setErrorMessage(data.Error || "Error fetching movies from the API");
+        return;
+      }
+
+      setMovieVideo(data.results || []);
+    } catch (error) {
+      console.log(error);
+      setErrorMessage("Error fetching movies from the API");
+    }
+  };
 
   const fetchMovieDetails = async () => {
     setIsLoading(true);
@@ -46,6 +67,7 @@ const MovieDetails = () => {
 
   useEffect(() => {
     fetchMovieDetails();
+    fetchMovieVideo();
   }, []);
 
   const movieRuntime = (minutes) => {
@@ -59,6 +81,13 @@ const MovieDetails = () => {
 
     const formattedDate = formatter.format(new Date(date));
     return formattedDate;
+  };
+
+  const handleTrailer = () => {
+    const trailer = movieVideo.find((video) => video.type === "Trailer");
+    if (trailer) {
+      window.open(`${YOUTUBE_BASE_URL}${trailer.key}`, "_blank");
+    }
   };
 
   console.log(id);
@@ -115,7 +144,7 @@ const MovieDetails = () => {
                 }
                 alt="Movie Poster"
               />
-              <div className="trailer-button">
+              <div className="trailer-button cursor-pointer" onClick={handleTrailer}>
                 <FaPlay />
                 Trailer
               </div>
