@@ -6,6 +6,7 @@ import ReactPlayer from "react-player";
 import { FaPlay } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { format } from "date-fns";
+import { motion } from "framer-motion";
 
 const YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v=";
 
@@ -92,7 +93,12 @@ const MovieDetails = () => {
 
   console.log(id);
   return (
-    <div className="min-h-screen flex justify-center items-center p-6">
+    <motion.div
+      initial={{ y: 100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 1 }}
+      className="min-h-screen flex justify-center items-center p-6"
+    >
       {isLoading ? (
         <Spinner />
       ) : errorMessage ? (
@@ -236,7 +242,7 @@ const MovieDetails = () => {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
