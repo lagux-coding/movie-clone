@@ -43,7 +43,7 @@ const Navigation = () => {
       transition={{ duration: 0.5 }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-around gap-10 items-center h-16">
+        <div className="flex justify-center gap-10 items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
             <a href="/" className={`text-4xl text-white`}>
@@ -68,11 +68,7 @@ const Navigation = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`text-xl ${
-                isScrolled
-                  ? "text-white hover:text-[#AB8BFF]"
-                  : "text-[#14143B] hover:text-[#AB8BFF]"
-              } focus:outline-none`}
+              className={`text-xl text-white hover:text-[#AB8BFF] focus:outline-none`}
             >
               <svg
                 className="w-6 h-6"
