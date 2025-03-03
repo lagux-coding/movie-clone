@@ -69,6 +69,7 @@ const MovieDetails = () => {
   useEffect(() => {
     fetchMovieDetails();
     fetchMovieVideo();
+    window.scrollTo(0, 0);
   }, []);
 
   const movieRuntime = (minutes) => {
